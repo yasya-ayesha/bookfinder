@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <ToCart :bookIndex="bookIndex" />
+                <Modal :bookIndex="bookIndex" />
             </li> 
         </ul>
     </div>
@@ -64,13 +64,14 @@
 
 <script>
 import { eventEmitter } from "./../main";
-import ToCart from './ToCart.vue';
+// import ToCart from './ToCart.vue';
+import Modal from "./Modal.vue";
 
 export default {
     name: 'Books',
     props: ["bookIndex"],
     components: {
-        ToCart
+        Modal
     },
     data() {
         return {
@@ -116,3 +117,5 @@ export default {
         font-size: 1.5rem;
     }
 </style>
+
+

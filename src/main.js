@@ -8,15 +8,17 @@ import Cart from '@/components/Cart.vue';
 
 import Vuelidate from 'vuelidate';
 import VueTheMask from 'vue-the-mask';
+import {BootstrapVue} from 'bootstrap-vue';
 
-import 'bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
 Vue.use(VueTheMask);
+Vue.use(BootstrapVue);
 
 const routes = [
   { path: '/', component: Home },

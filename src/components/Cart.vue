@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import roundPrice from "./roundPrice";
 export default {
     name: 'Cart',
     methods: {
@@ -57,7 +56,9 @@ export default {
         }
     },
     filters: {
-        roundPrice
+        roundPrice: function(num) {
+            return Number(Math.round(num + 'e' + 2) + 'e-' + 2);
+        }
     }
 }
 </script>

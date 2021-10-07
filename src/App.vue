@@ -19,7 +19,7 @@
         </div>
       </router-link>
     </div>
-    <p v-if="showMessage" class="alert alert-success mb-0">
+    <p v-if="showMessage" class="alert alert-success mb-0 mt-5">
     Your order in the amount of {{totalAmountOrder | roundPrice}} UAH is successful!
     </p>
     <div class="main-screen">
@@ -29,8 +29,6 @@
 </template>
 
 <script>
-
-import roundPrice from '@/components/roundPrice';
 import { eventEmitter } from "./main";
 
 export default {
@@ -44,7 +42,9 @@ export default {
     };
   },
   filters: {
-    roundPrice
+    roundPrice: function(num) {
+      return Number(Math.round(num + 'e' + 2) + 'e-' + 2);
+    }
   },
   computed: {
     customersOrders() {
@@ -110,7 +110,4 @@ body a {
   justify-content: center;
   margin-bottom: 30px;
 }
-
-
-
 </style>

@@ -38,17 +38,17 @@ export default new Vuex.Store({
 
             if (!state.customers[customer].totalAmount) {
                 state.customers[customer].totalAmount = bookOrder.bookAmount;
-                console.log('bookOrder.totalAmount:', bookOrder.totalAmount);
+                // console.log('bookOrder.totalAmount:', bookOrder.totalAmount);
             } else {
                 state.customers[customer].totalAmount += bookOrder.bookAmount;
             }
-            console.log('state.customers:', state.customers);
+            // console.log('state.customers:', state.customers);
         },
         removeCustomerData(state, customer) {
             let customerRemoved = delete state.customers[customer];
             if (customerRemoved) {
                 state.books = [];
-                console.log('removed customer data')
+                // console.log('removed customer data')
             }
         }
     },
@@ -56,7 +56,7 @@ export default new Vuex.Store({
         getBooksData({ commit }, booksName) {
             fetch(`https://www.googleapis.com/books/v1/volumes?q=${booksName}`)
             .then(response => {
-                console.dir(response);
+                // console.dir(response);
                 return response.json()})
             .then(json => commit("setBooksData", json))
             .catch(() => {
