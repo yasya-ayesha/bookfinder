@@ -15,5 +15,8 @@ module.exports = {
       // Or if using full build of Vue (runtime + compiler)
       // path.resolve(__dirname, 'node_modules/vue/dist/vue.esm.js')
     )
-  }
+  },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/bookfinder/'
+    : '/'
 }
