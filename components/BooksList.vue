@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import roundPrice from "~/filters/roundPrice";
+
 export default {
   filters: {
     formatDate(date) {
@@ -79,7 +81,8 @@ export default {
         .split("-")
         .reverse()
         .join(".");
-    }
+    },
+    roundPrice
   },
   computed: {
     books() {

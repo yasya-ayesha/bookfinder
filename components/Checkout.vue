@@ -74,8 +74,7 @@
           <div class="d-flex justify-content-end">
             <b-button
               type="submit"
-              variant="dark"
-              :class="['btn', 'btn-primary', 'px-5', {'disabled': !$v.inputData.name.required || !$v.inputData.email.required || !$v.inputData.phoneNumber.minLength}]"
+              :class="['btn', 'primary-button', 'btn-primary', 'px-5', {'disabled': !$v.inputData.name.required || !$v.inputData.email.required || !$v.inputData.phoneNumber.minLength}]"
             >Submit</b-button>
           </div>
         </b-form>

@@ -11,6 +11,6 @@ export default {
   components: {
     SignIn
   },
-  layout: 'empty',
+  layout: 'empty'
 };
 </script>

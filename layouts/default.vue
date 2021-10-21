@@ -22,11 +22,11 @@
         <div class="d-flex align-items-center">
           <div v-if="user === null">
             <b-button
-              to="signin"
+              to="/signin"
               class="btn-info"
             >Sign in</b-button>
             <b-button
-              to="signup"
+              to="/signup"
               class="btn-outline-info"
             >Sign up</b-button>
           </div>

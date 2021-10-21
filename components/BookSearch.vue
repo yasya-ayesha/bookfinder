@@ -12,7 +12,7 @@
       />
         <b-button
           type="submit"
-          class="ml-3 search-button"
+          class="ml-3 primary-button"
         >Search</b-button>
     </b-form>
   </div>
@@ -33,11 +33,11 @@ export default {
 </script>
 
 <style>
-.search-button {
+.primary-button {
   background: #007bff;
   border: #007bff;
 }
-.search-button:hover {
+.primary-button:hover {
   background: #005abb;
   border: #005abb;
 }

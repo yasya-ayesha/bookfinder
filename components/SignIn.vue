@@ -1,57 +1,68 @@
 <template>
   <div>
-    <b-form 
-      @submit.prevent="signIn"
+    <b-row
+      class="align"
+      align-h="center"
+      align-v="center"
     >
-      <h2 class="text-center mb-3">Sign in</h2>
-      <b-form-group>
-        <b-form-input
-          v-model="inputData.email"
-          type="text"
-          class="form-control text-center"
-          placeholder="E-mail"
-          autocomplete="username"
-        />
-      </b-form-group>
-      <b-form-group>
-        <b-form-input
-          v-model="inputData.password"
-          type="password"
-          class="form-control text-center"
-          placeholder="Password"
-          autocomplete="current-password"
-        />
-      </b-form-group>
-
-      <div class="d-flex justify-content-between mb-3">
-        <div>
-        <p class="m-0">Have no account yet?</p>
-        <b-link
-          to="/signup"
-        >Sign up</b-link>
-        </div>
-        <b-button
-          class="px-5"
-          variant="dark"
-          type="submit"
-        >Log in</b-button>
-      </div>
-      <div
-        v-show="isError"
-        class="alert alert-danger"
+      <b-col
+        md="8"
+        lg="6"
       >
-        <p class="mb-0 text-center">{{errorMsg}}</p>
-      </div>
-    </b-form>
-    <b-link class="link text-center" to="/">
-      Back to Home page
-    </b-link>
-    <b-alert
-      v-if="isNewUserRegistered"
-      class="text-center"
-      show
-      variant="success"
-    >A new user has been signed up</b-alert>
+        <b-form
+          @submit.prevent="signIn"
+        >
+          <h2 class="text-center mb-3">Sign in</h2>
+          <b-form-group>
+            <b-form-input
+              v-model="inputData.email"
+              type="text"
+              class="form-control text-center"
+              placeholder="E-mail"
+              autocomplete="username"
+            />
+          </b-form-group>
+          <b-form-group>
+            <b-form-input
+              v-model="inputData.password"
+              type="password"
+              class="form-control text-center"
+              placeholder="Password"
+              autocomplete="current-password"
+            />
+          </b-form-group>
+
+          <div class="d-flex justify-content-between mb-3">
+            <div>
+            <p class="m-0">Have no account yet?</p>
+            <b-link
+              to="/signup"
+            >Sign up</b-link>
+            </div>
+            <b-button
+              class="px-5"
+              variant="dark"
+              type="submit"
+            >Log in</b-button>
+          </div>
+          <div
+            v-show="isError"
+            class="alert alert-danger"
+          >
+            <p class="mb-0 text-center">{{errorMsg}}</p>
+          </div>
+        </b-form>
+        <b-link class="link text-center" to="/">
+          Back to Home page
+        </b-link>
+        <b-alert
+          v-if="isNewUserRegistered"
+          class="text-center"
+          show
+          variant="success"
+        >A new user has been signed up</b-alert>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

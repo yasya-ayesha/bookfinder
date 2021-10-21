@@ -4,10 +4,10 @@
       class="cart-info__link d-flex align-items-center"
       :to="isUserSignIn"
     >
-      <span
+      <p
         v-if="isPurchaseСompleted"
-        class="font-weight-bold mr-2"
-      >Your order in the amount of {{cartTotalPrice | roundPrice}} UAH is successful</span>
+        class="alert alert-success mr-2 message"
+      >Your order in the amount of {{cartTotalPrice | roundPrice}} UAH is successful</p>
       <div class="d-flex flex-column justify-content-end align-items-center mr-2">
         <b-badge
           v-if="!isPurchaseСompleted"
@@ -20,7 +20,7 @@
           class="cart-info__price"
         >{{cartTotalPrice | roundPrice}} UAH</span>
       </div>
-      <img src="./../assets/shopping-cart.svg" alt="cart icon">
+      <img v-if="!isPurchaseСompleted" src="./../assets/shopping-cart.svg" alt="cart icon">
     </b-link>
   </div>
 </template>
@@ -51,5 +51,9 @@ export default {
 <style scoped>
 .cart-info__link {
   color: #343a40;
+}
+.message {
+  display: block;
+  max-width: vw;
 }
 </style>

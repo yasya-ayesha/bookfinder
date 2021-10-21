@@ -1,51 +1,62 @@
 <template>
   <div>
-    <b-form
-      @submit.prevent="signUp"
+    <b-row
+      class="align"
+      align-h="center"
+      align-v="center"
     >
-      <h2 class="text-center mb-3">Sign up</h2>
-      <b-form-group>
-        <b-form-input
-          v-model="inputData.email"
-          class="form-control text-center"
-          type="text"
-          placeholder="E-mail"
-          autocomplete="username"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group description="Password should be at least 6 symbols long">
-        <b-form-input
-          v-model="inputData.password"
-          class="form-control text-center"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-        ></b-form-input>
-      </b-form-group>
-
-      <div class="d-flex justify-content-between mb-3">
-        <div>
-        <p class="m-0">Have an account already?</p>
-        <b-link
-          to="/signin"
-        >Sign in</b-link>
-        </div>
-        <b-button
-          type="submit"
-          variant="dark"
-        >Sign up</b-button>
-      </div>
-      <b-link
-        class="link text-center"
-        to="/"
-      >Back to Home page</b-link>
-      <div
-        v-show="isError"
-        class="alert alert-danger"
+      <b-col
+        md="8"
+        lg="6"
       >
-        <p class="mb-0 text-center">{{errorMsg}}</p>
-      </div>
-    </b-form>
+        <b-form
+          @submit.prevent="signUp"
+        >
+          <h2 class="text-center mb-3">Sign up</h2>
+          <b-form-group>
+            <b-form-input
+              v-model="inputData.email"
+              class="form-control text-center"
+              type="text"
+              placeholder="E-mail"
+              autocomplete="username"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group description="Password should be at least 6 symbols long">
+            <b-form-input
+              v-model="inputData.password"
+              class="form-control text-center"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+            ></b-form-input>
+          </b-form-group>
+
+          <div class="d-flex justify-content-between mb-3">
+            <div>
+            <p class="m-0">Have an account already?</p>
+            <b-link
+              to="/signin"
+            >Sign in</b-link>
+            </div>
+            <b-button
+              type="submit"
+              variant="dark"
+            >Sign up</b-button>
+          </div>
+          <b-link
+            class="link text-center"
+            to="/"
+          >Back to Home page</b-link>
+          <div
+            v-show="isError"
+            class="alert alert-danger"
+          >
+            <p class="mb-0 text-center">{{errorMsg}}</p>
+          </div>
+        </b-form>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
