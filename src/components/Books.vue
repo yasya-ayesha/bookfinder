@@ -24,7 +24,7 @@
             src="./../assets/nocover.svg" 
             alt="no cover available"
           />
-          <div class="media-body ml-3 book-info">
+          <div class="media-body ml-3 book-info col-md-8 col-6">
             <div class="book-info">
               <h5 class="mt-0 mb-2">
                 {{book.volumeInfo.title}}
@@ -57,17 +57,21 @@
             </div>
           </div>
         </div>
-        <div class="h-100">
-          <b-button 
-          v-if="book.saleInfo.isEbook === true" 
-          @click="sendToCart(book)"
-          class="btn btn-success order-btn p-2"
-          >
-            Add to cart
-          </b-button>
+        <div class="h-100 col-md-2 col-3">
+          <div v-if="book.saleInfo.isEbook && book.saleInfo.retailPrice !== undefined">
+            <p class="alert alert-light pb-1 mb-0 flex-grow-0">
+              Price:<br /> <strong>{{book.saleInfo.retailPrice.amount.toFixed(2)}}</strong> UAH
+            </p>
+            <b-button
+            @click="sendToCart(book)"
+            class="btn btn-success order-btn btn-lg"
+            >
+              Add to cart
+            </b-button>
+          </div>
           <p 
-          v-else-if="book.saleInfo.isEbook === false" 
-          class="d-flex align-items-center alert alert-danger mb-0 p-2"
+          v-else
+          class="d-flex align-items-center justify-content-center alert alert-danger flex-grow-1"
           >
             <span>Not in stock</span>
           </p>

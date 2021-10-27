@@ -12,15 +12,15 @@
           <p class="mb-0" v-if="numberOfBooks !== 0 && !showMessage">
             <span v-if="numberOfBooks === 1">Added {{numberOfBooks}} book</span>
             <span v-if="numberOfBooks > 1">Added {{numberOfBooks}} books</span>
-            worth {{totalPrice}} UAH
+            worth {{totalPrice.toFixed(2)}} UAH
           </p>
           
           <img src="./assets/shopping-cart.svg" class="mr-1" alt="cart">
         </div>
       </router-link>
     </div>
-    <p v-if="showMessage" class="alert alert-success mb-0 mt-5">
-    Your order in the amount of {{roundPrice(totalAmountOrder)}} UAH is successful!
+    <p v-if="showMessage" class="alert alert-success mb-0 mt-5 col-6 mx-auto">
+    Your order in the amount of {{ totalAmountOrder.toFixed(2) }} UAH is successful!
     </p>
     <div class="main-screen">
       <router-view />
@@ -40,11 +40,11 @@ export default {
     const emitter = require('tiny-emitter/instance');
 
     // creating cart data for showing
+    const showMessage = ref(false);
     const numberOfBooks = ref(0);
     const totalPrice = ref(0);
     const totalAmountOrder = ref(0);
-    let showMessage = false;
-
+    
     // getting cart data from store
     const cartData = computed(() => {
       return store.getters.cartData
@@ -55,15 +55,17 @@ export default {
       emitter.on("cartListUpdated", () => {
         numberOfBooks.value = 0;
         totalPrice.value = 0;
-        console.log('cartData: ', cartData.value);
+        // console.log('cartData: ', cartData.value);
         numberOfBooks.value += cartData.value.orderList.length;
         totalPrice.value += roundPrice(cartData.value.totalAmount);
       });
       emitter.on("madeOrder", () => {
         totalAmountOrder.value = roundPrice(cartData.value.totalAmount);
-        showMessage = true;
+        showMessage.value = true;
+        // console.log('showMessage 1: ', showMessage);
         setTimeout(() => {
-          showMessage = false;
+          showMessage.value = false;
+          // console.log('showMessage 2: ', showMessage);
         }, 15000);
       });
     });
@@ -83,8 +85,7 @@ export default {
       numberOfBooks,
       totalPrice,
       totalAmountOrder,
-      showMessage,
-      roundPrice
+      showMessage
     }
   }
 }

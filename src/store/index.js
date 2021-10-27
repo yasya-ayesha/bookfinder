@@ -24,7 +24,7 @@ export const store = createStore({
     },
     // pushing chosen book to cart list, adding its amount to total amount
     addBookToCart(state, bookOrder) {
-      console.log('bookOrder.bookAmount:', bookOrder.bookAmount);
+      // console.log('bookOrder.bookAmount:', bookOrder.bookAmount);
       state.cart.orderList.push(bookOrder.book);
       if (state.cart.totalAmount == '') {
         state.cart.totalAmount = bookOrder.bookAmount;
@@ -39,6 +39,8 @@ export const store = createStore({
       state.customer.name = customerData.name;
       state.customer.email = customerData.email;
       state.customer.phoneNumber = customerData.phoneNumber;
+
+      // console.log('customer data: ', state.customer);
     },
     // removing all data from state
     removeCustomerData(state) {
@@ -49,7 +51,7 @@ export const store = createStore({
         state.cart.totalAmount = '';
         state.customer = {};
 
-        console.log('removed customer data')
+        // console.log('removed customer data')
       }
     },
     // if fetching books was unsuccessful

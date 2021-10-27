@@ -29,7 +29,7 @@ export default {
 
     // sending input value to fetch books
     function getBooksData() {
-      console.log(booksName.value.value);
+      // console.log(booksName.value.value);
       store.dispatch('getBooksData', booksName.value.value)
     }
 

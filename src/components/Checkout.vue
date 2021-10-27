@@ -1,95 +1,85 @@
 <template>
   <div class="container">
-    <!-- <div
-      class="align"
-      align-h="center"
-      align-v="center"
-    >
-      <div
-        md="8"
-        lg="6"
-      > -->
-        <form @submit.stop.prevent="confirmOrder">
-          <div
-            label="Enter your name"
-            label-for="name"
-          >
-            <input
+    <h5 class="mt-5 alert alert-light">To complete your order, please fill in the following form</h5>
+    <div class="d-flex justify-content-center mt-4">
+      <div class="col-sm-6">
+        <form @submit.prevent="confirmOrder">
+          <div :class="['form-group', 'mb-4', { error: v$.name.$errors.length }]">
+            <label for="name">Enter your name: </label>
+            <input 
               id="name"
               type="text"
               placeholder="Name"
-              ref="inputName"
-              @change="getInputValue"
-              :class="{'is-invalid': v$.inputData.name.$error, 'is-valid': !v$.inputData.name.$invalid}"
-              required
+              v-model="v$.name.$model"
+              class="form-control"
             />
             <div 
-              v-if="!v$.inputData.name.required" 
-              class="invalid-feedback">
-                Filling of this field is required
-            </div>
-            <div 
-              v-if="!v$.inputData.name.minLength" 
-              class="invalid-feedback">
-                Name should be at least 2 symbols long
+            class="input-errors" 
+            v-for="(error, index) of v$.name.$errors" 
+            :key="index"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
             </div>
           </div>
 
-          <div
-            label="Enter your e-mail"
-            label-for="email"
-          >
+          <div :class="['form-group', 'mb-4', { error: v$.email.$errors.length }]">
+            <label for="email">Enter your e-mail: </label>
             <input
               id="email"
+              type="text"
               placeholder="E-mail"
-              ref="inputEmail"
-              @change="getInputValue"
-              :class="{'is-invalid': v$.inputData.email.$error, 'is-valid': !v$.inputData.email.$invalid}"
-              required
+              v-model="v$.email.$model"
+              class="form-control"
             />
             <div 
-              v-if="!v$.inputData.email.required">
-                Filling of this field is required
-            </div>
-            <div
-              v-if="!v$.inputData.email.email"
-            >This email isn't valid
+            class="input-errors" 
+            v-for="(error, index) of v$.email.$errors" 
+            :key="index"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
             </div>
           </div>
 
-          <div
-            label="Enter your phone number"
-            label-for="phone"
-          >
-            <input
-              id="phone"
-              v-mask="'+380#########'"
-              type="tel"
-              ref="inputPhoneNumber"
-              @change="getInputValue"
-              :class="{'is-invalid': v$.inputData.phoneNumber.$error, 'is-valid': !v$.inputData.phoneNumber.$invalid}"
-            />
-            <div
-              v-if="!v$.inputData.phoneNumber.minLength || !v$.inputData.phoneNumber.maxLength">
-                This phone number isn't valid
-              </div>
+          <div :class="['form-group', 'mb-4', { error: v$.phoneNumber.$errors.length }]">
+            <label for="phone">Enter your phone number: </label>
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">+380</span>
+              <input
+                id="phone"
+                v-model="v$.phoneNumber.$model"
+                type="number"
+                placeholder="Phone number"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                aria-label="Phone number"
+              />
+            </div>
+            <div 
+            class="input-errors" 
+            v-for="(error, index) of v$.phoneNumber.$errors" 
+            :key="index"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
+
           <div class="d-flex justify-content-end">
             <button
             type="submit"
-            :class="['btn', 'primary-button', 'btn-primary', 'px-5', {'disabled': !v$.inputData.name.required || !v$.inputData.email.required || !v$.inputData.phoneNumber.minLength}]"
+            class="btn primary-button btn-primary px-5" 
+            :disabled="v$.$invalid"
             >
               Submit
             </button>
           </div>
         </form>
-      <!-- </div>
-    </div> -->
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
@@ -106,76 +96,48 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    // inputs
-    const inputName = ref(null);
-    const inputEmail = ref(null);
-    const inputPhoneNumber = ref(null);
+    const form = reactive({
+      name: '',
+      email: '',
+      phoneNumber: ''
+    })
 
-    const inputData = {
-      name: inputName.value,
-      email: inputEmail.value,
-      phoneNumber: '+380'+inputPhoneNumber.value
-    }
-
-    // validation
     const rules = {
-      name: { 
-        required,
-        minLength: minLength(2)
-      }, 
-      email: { 
-        required,
-        email
-      },
-      phoneNumber: {
-        required,
-        minLength: minLength(13),
-        maxLength: maxLength(13)
-      }
-    }
-    const v$ = useVuelidate(rules, inputData)
-
-    function validationRun(input) {
-      v$.inputData[input].$touch();
+      name: {required, min: minLength(2)},
+      email: {required, email},
+      phoneNumber: {required, min: minLength(9), max: maxLength(9)}
     }
 
-    // testing inputs
-    function getInputValue() {
-      console.log('inputName: ', inputName.value.value);
-      console.log('inputEmail: ', inputEmail.value.value);
-      console.log('inputPhoneNumber: ', inputPhoneNumber.value.value);
-    }
+    const v$ = useVuelidate(rules, form)
 
-    // submitting form -> validation -> sending to store -> redirecting to home page
     function confirmOrder() {
-      for (let input in inputData) {
-        validationRun(input);
-      }
-      console.log('inputData: ', inputData);
-      if (!v$.inputData.$error) {
-        let customerData = {
-          name: inputData.name,
-          email: inputData.email,
-          phoneNumber: inputData.phoneNumber
+      if (!v$.$error) {
+        const customerData = {
+          name: form.name,
+          email: form.email,
+          phoneNumber: '+380'+form.phoneNumber
         }
+        // console.log('inputData: ', customerData);
         store.dispatch("makeOrder", customerData);
         router.push('/')
       }
     }
 
     return {
-      confirmOrder,
-      getInputValue,
-      inputName,
-      inputEmail,
-      inputPhoneNumber,
+      form,
       v$,
-      inputData,
+      confirmOrder
     }
   }
 }
 </script>
 
 <style scoped>
-
+.input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.error-msg {
+  color: red
+}
 </style>
